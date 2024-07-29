@@ -1,5 +1,5 @@
 // Remember to install the modules later
-import dotenv from 'dotenv';
+require('dotenv').config();
 
 const { Pool } = require('pg');
 
@@ -10,5 +10,4 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
 });
-
 module.exports = pool;
