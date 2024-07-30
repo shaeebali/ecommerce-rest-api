@@ -1,6 +1,6 @@
 const express = require('express');
 const usersRouter = express.Router();
-
+const usersController = require('../Controllers/usersController');
 
 //sample data below, replace with actual database...data moved to users.json file
 // const users = [
@@ -9,9 +9,12 @@ const usersRouter = express.Router();
 // ];
 
 // All routes for /user
-usersRouter.get();
-usersRouter.post();
-usersRouter.put();
-usersRouter.delete();
+// Gets all users
+usersRouter.get(usersController.getAllUsers);
+//Gets a single user
+usersRouter.get(usersController.getUser);
+usersRouter.post(usersController.createNewUser);
+usersRouter.put(usersController.updateUser);
+usersRouter.delete(usersController.deleteUser);
 
 module.exports = usersRouter;
