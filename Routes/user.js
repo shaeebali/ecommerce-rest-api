@@ -10,11 +10,14 @@ const usersController = require('../Controllers/usersController');
 
 // All routes for /user
 // Gets all users
-usersRouter.get(usersController.getAllUsers);
-//Gets a single user
-usersRouter.get(usersController.getUser);
-usersRouter.post(usersController.createNewUser);
-usersRouter.put(usersController.updateUser);
-usersRouter.delete(usersController.deleteUser);
+usersRouter.route('/')
+  .get(usersController.getAllUsers)
+  .post(usersController.createNewUser)
+  .put(usersController.updateUser)
+  .delete(usersController.deleteUser);
+
+// Gets a single user
+ usersRouter.route('/:id')
+  .get(usersController.getUser);
 
 module.exports = usersRouter;
