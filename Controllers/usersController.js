@@ -52,7 +52,11 @@ const deleteUser = (req, res, next) => {
 
 // Get a single user by id
 const getUser = (req, res, next) => {
-  res.json({ "id": req.params.id });
+  const user = data.users.find(user => user.id === parseInt(req.params.id));
+  if (!user) {
+    return res.status(400).json({ message: `User ID ${req.params.id} not found` });
+  }
+  res.status(200).json(user);
 };
 
 module.exports = {
