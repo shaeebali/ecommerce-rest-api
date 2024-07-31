@@ -18,7 +18,7 @@ app.use(cors());
 // Set session cookie to be secure
 app.set('trust proxy', 1);
 
-// Createe a secret key for session
+// Create a secret key for session
 app.use(
   session({  
     secret: process.env.SESSION_SECRET,
@@ -36,17 +36,18 @@ app.get('/', (req, res) => res.send('Back-end for ecommerce website!'));
 
 // add routes for products, orders, and users here...
 app.use('/users', usersRouter);
+app.use('/register', registerRouter);
 
 // Catch all errors and send a 404 response
-// app.all('*', (req, res) => {
-//   res.status(404);
-//   if (req.accepts('html')) {
-//     res.sendFile(path.join(__dirname, 'views', '404.html'))
-//   } else if (req.accepts('json')) {
-//     res.json({ error: '404 Not found' });
-//   } else {
-//     res.type('txt').send('404 Not found');
-//   }
-// })
+app.all('*', (req, res) => {
+  res.status(404);
+  if (req.accepts('html')) {
+    res.sendFile(path.join(__dirname, 'views', '404.html'))
+  } else if (req.accepts('json')) {
+    res.json({ error: '404 Not found' });
+  } else {
+    res.type('txt').send('404 Not found');
+  }
+})
 
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
