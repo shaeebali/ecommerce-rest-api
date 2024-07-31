@@ -11,10 +11,11 @@ const getAllUsers = (req, res, next) => {
 };
 
 const createNewUser = (req, res, next) => {
-  res.json({
-    "firstname": req.body.firstname,
-    "lastname": req.body.lastname,
-  });
+  const newUser = {
+    id: data.employees[data.employees.length - 1].id + 1 || 1,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+  };
 };
 
 const updateUser = (req, res, next) => {
