@@ -32,14 +32,22 @@ const updateUser = (req, res, next) => {
   if  (req.body.firstname) user.firstname = req.body.firstname;
   if (req.body.lastname) user.lastname = req.body.lastname;
   if (req.body.email) user.email = req.body.email;
+  
   const filteredArray = data.users.filter(user => user.id !== parseInt(req.body.id));
   const unsortedArray = [...filteredArray, user];
   data.setUsers(unsortedArray.sort((a, b) => a.id - b.id ? 1 : a.id < b.id ? -1 : 0));
+  
   res.status(200).json(data.users);
 };
 
 const deleteUser = (req, res, next) => {
-  res.json({ "id": req.body.id });
+  const user = data.users.find(user => user.id === parseInt(req.body.id));
+  if (!user) {
+    return res.status(400).json({ message: `User ID ${req.body.id} not found` });
+  }
+  const filteredArray = data.users.filter(user => user.id !== parseInt(req.body.id));
+  data.setUsers(...filteredArray);
+  res.status(200).json(data.users);
 };
 
 // Get a single user by id
