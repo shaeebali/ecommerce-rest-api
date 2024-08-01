@@ -6,6 +6,7 @@ const cors = require('cors');
 const session = require('express-session');
 const PORT = process.env.PORT || 3000;
 const usersRouter = require('./Routes/user');
+const registerRouter = require('./Routes/register');
 require('dotenv').config();
 
 //Middleware to parse JSON bodies
@@ -13,7 +14,23 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Add other middlewares here app.use (i.e. CORS, express-session, etc.)
-app.use(cors());
+const whitelist = [
+  'https://www.yoursite.com',
+  'http://127.0.0.1:5500',
+  'http://localhost:8000'
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+      if (whitelist.indexOf(origin) !== -1 || !origin) {
+          callback(null, true)
+      } else {
+          callback(new Error('Not allowed by CORS'));
+      }
+  },
+  optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions));
 
 // Set session cookie to be secure
 app.set('trust proxy', 1);
