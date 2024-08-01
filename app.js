@@ -7,6 +7,7 @@ const session = require('express-session');
 const PORT = process.env.PORT || 3000;
 const usersRouter = require('./Routes/user');
 const registerRouter = require('./Routes/register');
+const authRouter = require('./Routes/auth');
 require('dotenv').config();
 
 //Middleware to parse JSON bodies
@@ -54,6 +55,7 @@ app.get('/', (req, res) => res.send('Back-end for ecommerce website!'));
 // add routes for products, orders, and users here...
 app.use('/users', usersRouter);
 app.use('/register', registerRouter);
+app.use('/auth', authRouter);
 
 // Catch all errors and send a 404 response
 app.all('*', (req, res) => {
