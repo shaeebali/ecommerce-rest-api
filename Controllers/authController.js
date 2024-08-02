@@ -17,9 +17,14 @@ const handleLogin = async (req, res) => {
   // Evaluate password
   const match = await bcrypt.compare(password, foundUser.password);
   if (match) {
-    // Create JWTs later
+    const roles = Object.values(foundUser.roles);
+    // Create JWTs
     const accessToken = jwt.sign(
-      { "username": foundUser.username },
+      { "UserInfo": { 
+          "username": foundUser.username,
+          "roles": roles 
+          }
+      },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: '30s' } //set to 5 mins later
     ); 

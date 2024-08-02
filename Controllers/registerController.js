@@ -16,7 +16,12 @@ const handleNewUser = async (req, res) => {
     // encrypt password
     const hashedPassword = await bcrypt.hash(password, 10);
     // store the new user
-    const newUser = { "username": username, "password": hashedPassword, "email": email };
+    const newUser = { 
+      "username": username,
+      "roles": { "User": 2001}, 
+      "password": hashedPassword, 
+      "email": email 
+    };
     usersDB.setUsers([...usersDB.users, newUser]);
     // write the new usersDB to the file
     await fsPromises.writeFile(path.join(__dirname, "..", "Models", "users.json"), JSON.stringify(usersDB.users));
