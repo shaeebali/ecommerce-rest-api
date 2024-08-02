@@ -3,13 +3,17 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const corsOptions = require('./config/corsOptions');
 const session = require('express-session');
 const PORT = process.env.PORT || 3000;
 const usersRouter = require('./Routes/user');
 const registerRouter = require('./Routes/register');
 const authRouter = require('./Routes/auth');
+const refreshTokenRouter = require('./Routes/refresh');
+const logoutRouter = require('./Routes/logout');
 const verifyJWT = require('./Middleware/verifyJWT');
 const cookieParser = require('cookie-parser');
+const credentials = require('./Middleware/credentials');
 require('dotenv').config();
 
 //Middleware to parse JSON bodies
@@ -19,23 +23,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Middleware to parse cookies
 app.use(cookieParser());
 
-// Add other middlewares here app.use (i.e. CORS, express-session, etc.)
-const whitelist = [
-  'https://www.yoursite.com',
-  'http://127.0.0.1:5500',
-  'http://localhost:8000'
-];
+// Handle options credentials check - before CORS
+// and fetch cookies credentials requirement
+app.use(credentials);
 
-const corsOptions = {
-  origin: (origin, callback) => {
-      if (whitelist.indexOf(origin) !== -1 || !origin) {
-          callback(null, true)
-      } else {
-          callback(new Error('Not allowed by CORS'));
-      }
-  },
-  optionsSuccessStatus: 200
-}
+// Add other middlewares here app.use (i.e. CORS, express-session, etc.)
 app.use(cors(corsOptions));
 
 // Set session cookie to be secure
@@ -61,6 +53,8 @@ app.get('/', (req, res) => res.send('Back-end for ecommerce website!'));
 // these routes do not need to be protected by JWT
 app.use('/register', registerRouter);
 app.use('/auth', authRouter);
+app.use('/refresh', refreshTokenRouter);
+app.use('/logout', logoutRouter);
 
 // add verifyJWT middleware here (i.e. app.use(verifyJWT))
 app.use(verifyJWT);
