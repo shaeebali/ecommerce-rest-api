@@ -8,11 +8,16 @@ const PORT = process.env.PORT || 3000;
 const usersRouter = require('./Routes/user');
 const registerRouter = require('./Routes/register');
 const authRouter = require('./Routes/auth');
+const verifyJWT = require('./Middleware/verifyJWT');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 //Middleware to parse JSON bodies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//Middleware to parse cookies
+app.use(cookieParser());
 
 // Add other middlewares here app.use (i.e. CORS, express-session, etc.)
 const whitelist = [
@@ -53,9 +58,14 @@ app.use(
 app.get('/', (req, res) => res.send('Back-end for ecommerce website!'));
 
 // add routes for products, orders, and users here...
-app.use('/users', usersRouter);
+// these routes do not need to be protected by JWT
 app.use('/register', registerRouter);
 app.use('/auth', authRouter);
+
+// add verifyJWT middleware here (i.e. app.use(verifyJWT))
+app.use(verifyJWT);
+// all protected routes should be added after this line
+app.use('/users', usersRouter);
 
 // Catch all errors and send a 404 response
 app.all('*', (req, res) => {
