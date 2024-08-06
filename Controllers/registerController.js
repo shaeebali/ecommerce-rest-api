@@ -1,6 +1,7 @@
 const User = require('../Models/User');
 const bcrypt = require('bcrypt');
 
+// add firstname, lastname, createAt, updateAt to fields below(check same for user model)
 const handleNewUser = async (req, res) => {
   const { username, password, email } = req.body;
   if (!username || !password || !email) return res.status(400).json({ "message": "Please provide username, password, and email" });

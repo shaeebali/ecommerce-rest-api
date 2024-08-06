@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// add firstname, lastname, createAt, updateAt to fields
 const userSchema = new Schema({
   username: {
     type: String,
