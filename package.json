@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon -r dotenv/config app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "create-db": "node -r dotenv/config setupDatabase"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
@@ -22,10 +21,9 @@
     "js-yaml": "^3.14.1",
     "jsonwebtoken": "^9.0.2",
     "moment": "^2.29.1",
+    "mongoose": "^8.5.2",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "pg": "^8.5.0",
-    "pg-promise": "^10.8.1",
     "stripe": "^8.129.0",
     "swagger-jsdoc": "^6.0.0-rc.3",
     "swagger-ui-express": "^4.1.5"

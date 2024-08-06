@@ -1,6 +1,5 @@
 // create a user model class based on the database schema
-const db = require('../db');
-const pgp = require('pg-promise')({ capSQL: true });
+
 
 module.exports = class User {
   // create a new user record

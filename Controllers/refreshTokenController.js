@@ -5,7 +5,6 @@ const usersDB = {
 
 const { access } = require('fs');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
 
 
 const handleRefreshToken = (req, res) => {

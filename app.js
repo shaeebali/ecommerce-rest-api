@@ -1,4 +1,5 @@
 // Remember to install express and body-parser before running this code
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -14,7 +15,12 @@ const logoutRouter = require('./Routes/logout');
 const verifyJWT = require('./Middleware/verifyJWT');
 const cookieParser = require('cookie-parser');
 const credentials = require('./Middleware/credentials');
+const mongoose = require('mongoose');
+const connectDB = require('./config/dbConn');
 require('dotenv').config();
+
+// Connect to MongoDB
+connectDB();
 
 //Middleware to parse JSON bodies
 app.use(bodyParser.json());
@@ -73,4 +79,7 @@ app.all('*', (req, res) => {
   }
 })
 
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+mongoose.connection.once('open', () => {
+  console.log('Connected to MongoDB');
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+});
