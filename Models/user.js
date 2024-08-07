@@ -4,9 +4,17 @@ const Schema = mongoose.Schema;
 
 // add firstname, lastname, createAt, updateAt to fields
 const userSchema = new Schema({
-  username: {
+  firstname: {
     type: String,
     required: true
+  },
+  lastname: {
+    type: String,
+    required: true
+  },
+  username: {
+    type: String,
+    required: true,
   },
   roles: {
     User: {
@@ -24,7 +32,7 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  refreshToken: String
+  refreshToken: String,
 });
 
 module.exports = mongoose.model('User', userSchema);

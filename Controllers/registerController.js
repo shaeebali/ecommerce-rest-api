@@ -3,8 +3,8 @@ const bcrypt = require('bcrypt');
 
 // add firstname, lastname, createAt, updateAt to fields below(check same for user model)
 const handleNewUser = async (req, res) => {
-  const { username, password, email } = req.body;
-  if (!username || !password || !email) return res.status(400).json({ "message": "Please provide username, password, and email" });
+  const { firstname, lastname, username, password, email } = req.body;
+  if (!firstname || !lastname || !username || !password || !email) return res.status(400).json({ "message": "Please provide firstname, lastname, username, password, and email" });
   
   // check for duplicate usernames in the DB
   const duplicateUser = await User.findOne({username: username}).exec();
@@ -15,9 +15,11 @@ const handleNewUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     // create and store the new user
     const result = await User.create( { 
+      "firstname": firstname,
+      "lastname": lastname,
       "username": username, 
       "password": hashedPassword, 
-      "email": email 
+      "email": email
     });
     console.log(result);
     res.status(201).json({ "message": `User ${username} created successfully` });

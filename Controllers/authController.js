@@ -3,6 +3,7 @@ const User = require('../Models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+// this controller will handle logins
 const handleLogin = async (req, res) => {
   const { username, password, email } = req.body;
   if (!username || !password || !email) return res.status(400).json({ "message": "Please provide username, password, and email" });
@@ -20,7 +21,7 @@ const handleLogin = async (req, res) => {
           }
       },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: '30s' } //set to 5 mins later
+      { expiresIn: '60s' } //set to 5 mins later
     ); 
     const refreshToken = jwt.sign(
       { "username": foundUser.username },
