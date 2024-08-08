@@ -1,0 +1,45 @@
+// add logic/CRUD ops in controllers
+const Order = require('../Models/Order');
+
+// get all orders
+const getAllOrders = async (req, res, next) => {
+  const orders = await Order.find();
+  if (!orders) return res.status(204).json({ "message": "No orders found" });
+  res.json(orders);
+};
+
+// create a new order
+const createNewOrder = async (req, res, next) => {
+  if (!req?.body?.user || !req?.body?.status || !req?.body?.total) {
+    return res.status(400).json({ 'message': 'User, status and total are required' });
+  }
+  try {
+    const result = await Order.create({
+      user: req.body.user,
+      status: req.body.status,
+      total: req.body.total
+    });
+    res.status(201).json(result);
+  } catch(error) {
+    console.log(error);
+  }
+};
+
+// update an order
+const updateOrder = async (req, res, next) => {
+  if (!req?.body?.id) {
+    return res.status(400).json({ 'message': 'Order ID parameter is required' });
+  }
+  const order = await Order.findOne({ _id: req.body.id }).exec();
+
+  if (!order) {
+    return res.status(204).json({ message: `Order ID ${req.body.id} does not match any order` });
+  }
+  if  (req.body?.user) order.user = req.body.user;
+  if (req.body?.status) order.status = req.body.status;
+  if (req.body?.total) order.total = req.body.total;
+
+  const result = await order.save();
+
+  res.status(200).json(result);
+};
