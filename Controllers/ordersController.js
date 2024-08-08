@@ -43,3 +43,37 @@ const updateOrder = async (req, res, next) => {
 
   res.status(200).json(result);
 };
+
+// delete an order
+const deleteOrder = async (req, res, next) => {
+  if (!req?.body?.id) {
+    return res.status(400).json({ 'message': 'Order ID required' });
+  }
+  const order = await Order.findOne({ _id: req.body.id }).exec();
+
+  if (!order) {
+    return res.status(204).json({ message: `Order ID ${req.body.id} does not match any order` });
+  }
+  const result = await order.deleteOne({ _id: req.body.id });
+
+  res.status(200).json(result);
+};
+
+// get a single order
+const getOrder = async (req, res, next) => {
+  if (!req?.params?.id) return res.status(400).json({ 'message': 'Order ID required' });
+  const order = await Order.findOne({ _id: req.params.id }).exec();
+
+  if (!order) {
+    return res.status(204).json({ message: `Order ID ${req.params.id} does not match any order` });
+  }
+  res.status(200).json(order);
+};
+
+module.exports = {
+  getAllOrders,
+  createNewOrder,
+  updateOrder,
+  deleteOrder,
+  getOrder
+};
