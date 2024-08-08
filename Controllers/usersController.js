@@ -28,7 +28,7 @@ const createNewUser = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
   if (!req?.body?.id) {
-    return res.status(400).json({ 'message': 'ID parameter is required' });
+    return res.status(400).json({ 'message': 'User ID parameter is required' });
   }
   const user = await User.findOne({ _id: req.body.id }).exec();
 

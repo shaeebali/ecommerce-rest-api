@@ -12,6 +12,7 @@ const registerRouter = require('./Routes/register');
 const authRouter = require('./Routes/auth');
 const refreshTokenRouter = require('./Routes/refresh');
 const logoutRouter = require('./Routes/logout');
+const productsRouter = require('./Routes/product');
 const verifyJWT = require('./Middleware/verifyJWT');
 const cookieParser = require('cookie-parser');
 const credentials = require('./Middleware/credentials');
@@ -61,6 +62,7 @@ app.use('/register', registerRouter);
 app.use('/auth', authRouter);
 app.use('/refresh', refreshTokenRouter);
 app.use('/logout', logoutRouter);
+app.use('/products', productsRouter); // does this need to be protected?
 
 // add verifyJWT middleware here (i.e. app.use(verifyJWT))
 app.use(verifyJWT);

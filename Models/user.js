@@ -33,6 +33,7 @@ const userSchema = new Schema({
     required: true
   },
   refreshToken: String,
+  timestamps: true,
 });
 
 module.exports = mongoose.model('User', userSchema);
