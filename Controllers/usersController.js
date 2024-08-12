@@ -51,7 +51,7 @@ const deleteUser = async (req, res, next) => {
   if (!user) {
     return res.status(204).json({ message: `User ID ${req.body.id} does not match any user` });
   }
-  const result = await user.deleteOne({ _id: req.body.id });
+  const result = await user.deleteOne(); //{ _id: req.body.id });
   res.status(200).json(result);
 };
 

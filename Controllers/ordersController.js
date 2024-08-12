@@ -1,4 +1,5 @@
 // add logic/CRUD ops in controllers
+// ?require OrderItem model see ERD diagram
 const Order = require('../Models/Order');
 
 // get all orders

@@ -14,9 +14,9 @@ const orderSchema = new Schema({
     default: 'pending'
   },
   total: {
-    type: Decimal128,
+    type: Schema.Types.Decimal128,
     required: true
   },
-  timestamps: true,
+  timestamps: {},
 });
 module.exports = mongoose.model('Order', orderSchema);
