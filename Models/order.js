@@ -17,6 +17,6 @@ const orderSchema = new Schema({
     type: Schema.Types.Decimal128,
     required: true
   },
-  timestamps: {},
-});
+}, { timestamps: true });
+
 module.exports = mongoose.model('Order', orderSchema);

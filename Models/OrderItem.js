@@ -14,16 +14,12 @@ const orderItemSchema = new Schema({
   },
   qty: {
     type: Number,
-    required: true
+    required: true // quantity of products ordered
   },
   price: {
     type: Number,
     required: true
   },
-  quantity: {
-      type: Number,
-      required: true
-  },
-  timestamps: true,
-});
+}, { timestamps: true });
+
 module.exports = mongoose.model('OrderItem', orderItemSchema);

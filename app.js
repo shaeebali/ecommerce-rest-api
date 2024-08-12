@@ -63,13 +63,13 @@ app.use('/register', registerRouter);
 app.use('/auth', authRouter);
 app.use('/refresh', refreshTokenRouter);
 app.use('/logout', logoutRouter);
-app.use('/products', productsRouter); // does this need to be protected?
-app.use('/orders', ordersRouter);
 
 // add verifyJWT middleware here (i.e. app.use(verifyJWT))
 app.use(verifyJWT);
 // all protected routes should be added after this line
 app.use('/users', usersRouter);
+app.use('/products', productsRouter); // does this need to be protected?
+app.use('/orders', ordersRouter);
 
 // Catch all errors and send a 404 response
 app.all('*', (req, res) => {

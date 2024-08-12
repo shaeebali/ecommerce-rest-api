@@ -10,15 +10,16 @@ const getAllProducts = async (req, res, next) => {
 
 // create a new product
 const createNewProduct = async (req, res, next) => {
-  if (!req?.body?.name || !req?.body?.description || !req?.body?.price) {
-    return res.status(400).json({ 'message': 'Name, description and price are required' });
+  if (!req?.body?.name || !req?.body?.description || !req?.body?.price || !req?.body?.quantity) {
+    return res.status(400).json({ 'message': 'Name, description, price, and quantity are required' });
   }
 
   try {
     const result = await Product.create({
       name: req.body.name,
       description: req.body.description,
-      price: req.body.price
+      price: req.body.price,
+      quantity: req.body.quantity,
     });
     res.status(201).json(result);
   } catch(error) {
