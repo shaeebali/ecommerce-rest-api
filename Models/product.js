@@ -19,6 +19,11 @@ const productSchema = new Schema({
     type: Number,
     required: true
   },
+  orderItems: [{
+    type: Schema.Types.ObjectId,
+    ref: 'OrderItem',
+    required: true
+  }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', productSchema);

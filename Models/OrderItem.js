@@ -7,11 +7,11 @@ const orderItemSchema = new Schema({
     ref: 'Order',
     required: true
   },
-  productId: {
+  productId: [{
     type: Schema.Types.ObjectId,
     ref: 'Product',
     required: true
-  },
+  }],
   qty: {
     type: Number,
     required: true // quantity of products ordered

@@ -17,6 +17,11 @@ const orderSchema = new Schema({
     type: Schema.Types.Decimal128,
     required: true
   },
+  productId: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Product',
+    required: true
+  }],
 }, { timestamps: true });
 
 module.exports = mongoose.model('Order', orderSchema);

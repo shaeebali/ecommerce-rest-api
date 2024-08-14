@@ -1,6 +1,7 @@
 // add logic/CRUD ops in controllers
 // ?require OrderItem model see ERD diagram
 const Order = require('../Models/Order');
+const orderItem = require('../Models/OrderItem');
 
 // get all orders
 const getAllOrders = async (req, res, next) => {
@@ -11,7 +12,7 @@ const getAllOrders = async (req, res, next) => {
 
 // create a new order
 const createNewOrder = async (req, res, next) => {
-  if (!req?.body?.user || !req?.body?.status || !req?.body?.total) {
+  if (!req?.body?.user || !req?.body?.status || !req?.body?.total || !req?.body?.qty || !req?.body?.price || !req?.body?.productId) {
     return res.status(400).json({ 'message': 'User, status and total are required' });
   }
   try {
@@ -20,7 +21,13 @@ const createNewOrder = async (req, res, next) => {
       status: req.body.status,
       total: req.body.total
     });
-    res.status(201).json(result);
+    const result2 = await orderItem.create({
+      orderId: result._id,
+      productId: req.body.productId,
+      qty: req.body.qty,
+      price: req.body.price
+    });
+    res.status(201).json(result && result2);
   } catch(error) {
     console.log(error);
   }
