@@ -12,7 +12,8 @@ const registerRouter = require('./Routes/register');
 const authRouter = require('./Routes/auth');
 const refreshTokenRouter = require('./Routes/refresh');
 const logoutRouter = require('./Routes/logout');
-const productsRouter = require('./Routes/product');
+const itemsRouter = require('./Routes/item');
+const cartsRouter = require('./Routes/cart');
 const ordersRouter = require('./Routes/order');
 const verifyJWT = require('./Middleware/verifyJWT');
 const cookieParser = require('cookie-parser');
@@ -68,7 +69,8 @@ app.use('/logout', logoutRouter);
 app.use(verifyJWT);
 // all protected routes should be added after this line
 app.use('/users', usersRouter);
-app.use('/products', productsRouter); // does this need to be protected?
+app.use('/items', itemsRouter); // does this need to be protected?
+app.use('/carts', cartsRouter);
 app.use('/orders', ordersRouter);
 
 // Catch all errors and send a 404 response
