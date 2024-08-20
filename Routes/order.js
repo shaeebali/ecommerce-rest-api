@@ -6,7 +6,9 @@ const verifyRoles = require('../Middleware/verifyRoles');
 
 // All routes for /orders
 ordersRouter.route('/')
-  .get(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), ordersController.getOrders);
+  .get(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), ordersController.getOrders)
 
+ordersRouter.route('/order/checkout')
+  .post(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), ordersController.checkoutOrder);
 
-module.exports = ordersRouter;
+  module.exports = ordersRouter;
