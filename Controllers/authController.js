@@ -5,9 +5,9 @@ const jwt = require('jsonwebtoken');
 
 // this controller will handle logins
 const handleLogin = async (req, res) => {
-  const { username, password, email } = req.body;
-  if (!username || !password || !email) return res.status(400).json({ "message": "Please provide username, password, and email" });
-  const foundUser = await User.findOne({ username: username }).exec();
+  const { email, password } = req.body;
+  if (!email || !password ) return res.status(400).json({ "message": "Please provide email and password" });
+  const foundUser = await User.findOne({ email: email }).exec();
   if (!foundUser) return res.sendStatus(401); //Unauthorized
   // Evaluate password
   const match = await bcrypt.compare(password, foundUser.password);
@@ -16,15 +16,15 @@ const handleLogin = async (req, res) => {
     // Create JWTs
     const accessToken = jwt.sign(
       { "UserInfo": { 
-          "username": foundUser.username,
+          "email": foundUser.email,
           "roles": roles 
           }
       },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: '60s' } //set to 5 mins later
+      { expiresIn: '5m' } //set to 5 mins later
     ); 
     const refreshToken = jwt.sign(
-      { "username": foundUser.username },
+      { "email": foundUser.email },
       process.env.REFRESH_TOKEN_SECRET,
       { expiresIn: '1d' }
     );
