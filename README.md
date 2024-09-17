@@ -31,7 +31,7 @@ This project is a RESTful API for an e-commerce platform built using Node.js and
 
 4. Start the server:
    ```bash
-   npm start
+   npm/pnpm run start
    ```
 
 ## API Endpoints
