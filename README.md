@@ -1,7 +1,3 @@
-Here's a simple README for your ecommerce REST API project:
-
----
-
 # E-commerce REST API
 
 This project is a RESTful API for an e-commerce platform built using Node.js and Express.
@@ -62,7 +58,3 @@ This project is a RESTful API for an e-commerce platform built using Node.js and
 ## License
 
 This project is licensed under the MIT License.
-
----
-
-You can customize this further depending on specific details from your project.
